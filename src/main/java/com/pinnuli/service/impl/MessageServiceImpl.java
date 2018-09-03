@@ -1,6 +1,5 @@
 package com.pinnuli.service.impl;
 
-import com.pinnuli.commons.ServerResponse;
 import com.pinnuli.dao.MessageDao;
 import com.pinnuli.model.Message;
 import com.pinnuli.service.MessageService;
@@ -21,8 +20,8 @@ public class MessageServiceImpl implements MessageService {
     private MessageDao messageDao;
 
     @Override
-    public ServerResponse<List<Message>> query() {
+    public List<Message>  query() {
 
-        return ServerResponse.createBySuccess(messageDao.query());
+        return messageDao.query();
     }
 }

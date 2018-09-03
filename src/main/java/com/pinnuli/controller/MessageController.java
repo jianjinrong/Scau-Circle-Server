@@ -1,6 +1,6 @@
 package com.pinnuli.controller;
 
-import com.pinnuli.commons.ServerResponse;
+import com.pinnuli.commons.Result;
 import com.pinnuli.model.Message;
 import com.pinnuli.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,10 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(value = "query", method = RequestMethod.GET)
-    public ServerResponse<List<Message>> query() {
+    public Result query() {
         System.out.println("query");
-        return messageService.query();
+        List<Message> list = messageService.query();
+        return Result.ok().put("list", list);
     }
 
 }

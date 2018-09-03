@@ -5,18 +5,18 @@
 
 <mapper namespace="com.pinnuli.dao.MessageDao">
 
-    <resultMap type="com.pinnuli.model.Message" id="MessageResult">
+    <!--<resultMap type="com.pinnuli.model.Message" id="MessageResult">
         <id column="ID" jdbcType="INTEGER" property="id"/>
         <result column="COMMAND" jdbcType="VARCHAR" property="command"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
-        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
-    </resultMap>
+        <result column="CONTENT_A" jdbcType="VARCHAR" property="content"/>
+    </resultMap>-->
 
     <!--条件查询-->
-    <select id="query" resultMap="MessageResult">
+    <select id="query" resultType="com.pinnuli.model.Message">
         select <include refid="columns"/> from message
         ORDER BY ID
     </select>
 
-    <sql id="columns">ID,COMMAND,DESCRIPTION,CONTENT</sql>
+    <sql id="columns">ID,COMMAND,DESCRIPTION,CONTENT_A</sql>
 </mapper>

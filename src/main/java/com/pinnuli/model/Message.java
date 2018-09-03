@@ -23,7 +23,7 @@ public class Message {
     /**
      * 内容
      */
-    private String content;
+    private String contentA;
     public String getId() {
         return id;
     }
@@ -42,11 +42,11 @@ public class Message {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getContent() {
-        return content;
+    public String getContentA() {
+        return contentA;
     }
-    public void setContent(String content) {
-        this.content = content;
+    public void setContentA(String contentA) {
+        this.contentA = contentA;
     }
 
 }
