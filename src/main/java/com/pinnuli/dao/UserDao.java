@@ -8,5 +8,5 @@ import com.pinnuli.model.User;
  */
 public interface UserDao {
 
-    public User create(String userName, String password);
+    public User create(User user);
 }
