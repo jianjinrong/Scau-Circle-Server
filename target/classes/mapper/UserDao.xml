@@ -12,5 +12,19 @@
         values(#{userName},#{password})
     </insert>
 
+    <!--条件查询-->
+    <select id="login" resultType="com.pinnuli.model.User" parameterType="com.pinnuli.model.User">
+        select <include refid="columns"/> from circle_user
+        <where>
+            <if test="userName != null and !&quot;&quot;.equals(userName.trim())">
+                AND username=#{userName}
+            </if>
+            <if test="password != null and !&quot;&quot;.equals(password.trim())">
+                AND password=#{password}
+            </if>
+        </where>
+        limit 1
+    </select>
+
     <sql id="columns">id,username</sql>
 </mapper>

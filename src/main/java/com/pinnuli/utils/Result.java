@@ -1,87 +1,65 @@
 package com.pinnuli.utils;
 
 
+import com.pinnuli.config.StatusCodeConf;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @description: 结果返回的模型
  * @author: pinnuli
  * @date: 18-9-3
  */
 
-public class Result {
+public class Result extends HashMap{
 
 
-    /**
-     * 返回码
-     */
-    private Integer code;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 返回信息
+     * 默认返回情况
      */
-    private String message;
-
-    /**
-     * 返回内容
-     */
-    private Object content;
-
     public Result() {
-
+        put("code", StatusCodeConf.SUCCESS_CODE);
+        put("message", "操作成功");
+        put("content", "完全O文明K");
     }
 
-    public Result(Integer code, String message, Object content) {
-        this.code = code;
-        this.message = message;
-        this.content = content;
+    public static Result error() {
+        return error(StatusCodeConf.UNKNOW_ERROR_CODE, "未知异常，请联系管理员");
     }
 
-    public Result(ExceptionStatus exceptionStatus, Object content){
-        this.code = exceptionStatus.getCode();
-        this.message = exceptionStatus.getMessage();
-        this.content = content;
+    public static Result error(String message) {
+        return error(StatusCodeConf.UNKNOW_ERROR_CODE, message);
     }
 
-    public static Result SUCCESS( Object content){
-        return new Result(ExceptionStatus.SUCCESS, content);
+    public static Result error(int code, String message) {
+        Result r = new Result();
+        r.put("code", code);
+        r.put("message", message);
+        r.put("content", "这代码有毒");
+        return r;
     }
 
-    public static Result SUCCESS(){
-        return new Result(ExceptionStatus.SUCCESS, ExceptionStatus.OK_MESSAGE);
+    public static Result success(String message) {
+        Result r = new Result();
+        r.put("message", message);
+        return r;
     }
 
-   /* public static Result ERROR(BaseException e){
-        return new Result(e.getCode(), e.getMessage(), e.getClass().getSimpleName());
-    }*/
-
-    public static Result ERROR(ExceptionStatus exceptionStatus){
-        return new Result(exceptionStatus, ExceptionStatus.ERROR_MESSAGE);
+    public static Result success(Map<String, Object> map) {
+        Result r = new Result();
+        r.put("content", map);
+        return r;
     }
 
-    public static Result ERROR(){
-        return new Result(ExceptionStatus.ERROR, ExceptionStatus.ERROR_MESSAGE);
+    public static Result success() {
+        return new Result();
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setContent(Object content) {
-        this.content = content;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Object getContent() {
-        return content;
+    public Result put(String key, Object value) {
+        super.put(key, value);
+        return this;
     }
 }

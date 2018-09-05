@@ -61,4 +61,9 @@ public class StatusCodeConf {
      * 资源不存在
      */
     public static final int RESOURCE_NOTFOUND_CODE = -404;
+
+    /**
+     * 未知错误
+     */
+    public static final int UNKNOW_ERROR_CODE = 500;
 }

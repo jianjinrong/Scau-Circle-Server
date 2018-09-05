@@ -2,6 +2,8 @@ package com.pinnuli.service;
 
 import com.pinnuli.model.User;
 
+import java.util.Map;
+
 /**
  * @author: pinnuli
  * @date: 18-9-4
@@ -11,10 +13,11 @@ public interface UserService {
 
 
     /**
-     * @param userName: 用户名
-     * @param password： 密码
-     * @return User
+     * @param user
+     * @return
      */
-    public User create(String userName, String password);
+    public int create(User user);
+
+    public Map<String, Object> login(User user);
 
 }

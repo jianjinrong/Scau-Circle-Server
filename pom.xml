@@ -25,6 +25,7 @@
     <!-- log4j日志文件管理包版本 -->
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
+    <json.version>2.9.6</json.version>
 
   </properties>
 
@@ -162,20 +163,28 @@
       <version>${slf4j.version}</version>
     </dependency>
     <!-- log end -->
-    <!-- 映入JSON -->
-    <!--<dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.13</version>
-    </dependency>-->
+
+    <!-- json begin -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${json.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.9.6</version>
+      <version>${json.version}</version>
     </dependency>
 
-    <!-- 上传组件包 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${json.version}</version>
+    </dependency>
+    <!-- json end -->
+
+    <!-- 上传组件包 begin -->
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
@@ -191,6 +200,15 @@
       <artifactId>commons-codec</artifactId>
       <version>1.11</version>
     </dependency>
+    <!-- 上传组件包 end -->
+
+    <!-- jwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+
   </dependencies>
 
   <build>
