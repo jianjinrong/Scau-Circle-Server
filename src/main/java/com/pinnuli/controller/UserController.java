@@ -1,11 +1,11 @@
 package com.pinnuli.controller;
 
+import com.pinnuli.commons.ErrorCodeEnum;
 import com.pinnuli.config.StatusCodeConf;
 import com.pinnuli.model.User;
 import com.pinnuli.service.UserService;
-import com.pinnuli.utils.ExceptionStatus;
 import com.pinnuli.utils.MD5Util;
-import com.pinnuli.utils.Result;
+import com.pinnuli.commons.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,35 +29,18 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Result create(@RequestBody User user) {
-        /*if ("admin".endsWith(user.getUserName().trim())) {
-            return Result.error(StatusCodeConf.DATA_ERROR_CODE, "不可以注册admin用户");
-        }*/
-        int resultCount = userService.create(user);
-        if(resultCount == 0){
-            //未知错误
-            return Result.error();
-        }
-        return Result.success("注册成功！");
+    public Result<String> create(@RequestBody User user) {
+        return userService.save(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result login(@RequestBody User user) {
-        try {
-            log.debug(user.getPassword());
-            String MD5pwd = MD5Util.MD5Encode(user.getPassword(), "UTF-8");
-            user.setPassword(MD5pwd);
-        } catch (Exception e) {
-            user.setPassword("");
-        }
-        Map<String, Object> result = new HashMap<>();
-        result = userService.login(user);
-        if(result == null){
-            return Result.error(StatusCodeConf.DATA_ERROR_CODE, "请认真核对账号、密码！");
-        }
-        return Result.success(result);
+        return userService.login(user);
     }
 
-
+    /*@RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public Result logout(){
+        return userService;
+    }*/
 
 }

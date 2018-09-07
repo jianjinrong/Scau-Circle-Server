@@ -1,7 +1,9 @@
 package com.pinnuli.interceptor;
 
-import com.pinnuli.utils.JWTUtil;
+import com.pinnuli.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 public class JWTInterceptor implements HandlerInterceptor {
+    private static Logger log = LoggerFactory.getLogger(JWTInterceptor.class);
+
     @Override
     public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
             throws Exception {
@@ -32,7 +36,7 @@ public class JWTInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) {
         // TODO Auto-generated method stub
-        JWTUtil util = new JWTUtil();
+        JwtUtil util = new JwtUtil();
         String jwt = request.getHeader("Authorization");
 
         try {
@@ -50,6 +54,7 @@ public class JWTInterceptor implements HandlerInterceptor {
             response.getWriter().write("未登录，请重新登录后操作");;
         } catch (Exception e) {
             // TODO Auto-generated catch block
+            log.debug("");
             e.printStackTrace();
         }
         return false;

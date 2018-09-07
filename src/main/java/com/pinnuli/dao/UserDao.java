@@ -10,7 +10,10 @@ import java.util.List;
  */
 public interface UserDao {
 
-    public int create(User user);
+    int save(User user);
 
-    public User login(User user);
+    User login(User user);
+
+    int checkUserName(String userName);
+
 }

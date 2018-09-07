@@ -5,15 +5,25 @@
 
 <mapper namespace="com.pinnuli.dao.UserDao">
 
+    <resultMap type="com.pinnuli.model.User" id="UserResult">
+        <id column="id" jdbcType="INTEGER" property="uid"/>
+        <result column="username" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
 
     <!--插入新用户-->
-    <insert id="create" parameterType="com.pinnuli.model.User">
+    <insert id="save" parameterType="com.pinnuli.model.User">
         insert into circle_user(username,password)
         values(#{userName},#{password})
     </insert>
 
+    <!--查看用户是否存在-->
+    <select id="checkUserName" resultType="int" parameterType="string" >
+        select count(1) from circle_user
+        where username = #{userName}
+    </select>
+
     <!--条件查询-->
-    <select id="login" resultType="com.pinnuli.model.User" parameterType="com.pinnuli.model.User">
+    <select id="login" resultMap="UserResult" parameterType="com.pinnuli.model.User">
         select <include refid="columns"/> from circle_user
         <where>
             <if test="userName != null and !&quot;&quot;.equals(userName.trim())">

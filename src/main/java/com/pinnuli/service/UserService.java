@@ -1,5 +1,6 @@
 package com.pinnuli.service;
 
+import com.pinnuli.commons.Result;
 import com.pinnuli.model.User;
 
 import java.util.Map;
@@ -13,11 +14,14 @@ public interface UserService {
 
 
     /**
+     * @description 注册用户
      * @param user
-     * @return
+     * @return 返回操作数据库受影响的行数
      */
-    public int create(User user);
+    Result<String> save(User user);
 
-    public Map<String, Object> login(User user);
+    Result<Map<String, Object>> login(User user);
+
+    Result<String> checkUserName(String userName);
 
 }

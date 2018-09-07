@@ -1,5 +1,7 @@
 package com.pinnuli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,6 @@ import java.io.Serializable;
  * @author: pinnuli
  * @date: 2018-09-04
  */
-
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -17,7 +17,7 @@ import java.util.Map;
  * @date: 2018-09-05
  */
 
-public class JWTUtil {
+public class JwtUtil {
 
     private static final String SECRET_KEY= "XX#$%()(#*!()!KL<><MQLMNQNQJQK sdfkjsdrow32234545df>?N<:{";
 
