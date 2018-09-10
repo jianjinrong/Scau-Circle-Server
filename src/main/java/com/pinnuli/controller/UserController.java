@@ -38,9 +38,9 @@ public class UserController {
         return userService.login(user);
     }
 
-    /*@RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public Result logout(){
-        return userService;
-    }*/
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public Result logout(@RequestBody User user){
+        return userService.logout(user);
+    }
 
 }

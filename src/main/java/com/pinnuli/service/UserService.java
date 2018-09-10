@@ -22,6 +22,8 @@ public interface UserService {
 
     Result<Map<String, Object>> login(User user);
 
+    Result<Map<String, Object>> logout(User user);
+
     Result<String> checkUserName(String userName);
 
 }

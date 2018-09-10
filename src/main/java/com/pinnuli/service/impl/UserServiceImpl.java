@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
             Map<String, Object> payload = new HashMap<String, Object>();
             payload.put("user_id", userResult.getUid());
             try {
-                String jwt = util.createJWT("jwt", "", 30000, payload);
+                String jwt = util.createJWT("jwt", "", 72000000, payload);
                 data.put("token", jwt);
                 return Result.createBySuccess(data);
             } catch (Exception e) {
@@ -84,6 +84,11 @@ public class UserServiceImpl implements UserService{
             }
             return Result.createByError();
         }
+    }
+
+    @Override
+    public Result<Map<String, Object>> logout(User user) {
+        return null;
     }
 
     @Override
