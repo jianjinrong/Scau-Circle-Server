@@ -2,15 +2,19 @@ package com.pinnuli.controller;
 
 import com.pinnuli.commons.ErrorCodeEnum;
 import com.pinnuli.config.StatusCodeConf;
+import com.pinnuli.model.PayloadInfo;
 import com.pinnuli.model.User;
 import com.pinnuli.service.UserService;
+import com.pinnuli.utils.JwtUtil;
 import com.pinnuli.utils.MD5Util;
 import com.pinnuli.commons.Result;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +43,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public Result logout(@RequestBody User user){
-        return userService.logout(user);
+    public Result logout(HttpServletRequest request){
+        PayloadInfo payloadInfo = new PayloadInfo();
+        payloadInfo = userService.getPayloadInfo(request);
+        log.debug("UserController: {}", payloadInfo.getUserName());
+        return userService.logout(payloadInfo);
     }
+
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
+    public Result resetPassword(HttpServletRequest request, String oldPassword, String newPassword) {
+        PayloadInfo payloadInfo = new PayloadInfo();
+        payloadInfo = userService.getPayloadInfo(request);
+        return userService.resetPassword(payloadInfo, oldPassword, newPassword);
+    }
+
+
 
 }

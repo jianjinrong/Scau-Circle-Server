@@ -12,8 +12,14 @@ public interface UserDao {
 
     int save(User user);
 
-    User login(User user);
+    User selectByUserName(String userName);
+
+    User selectByUserNameAndPassword(User user);
 
     int checkUserName(String userName);
+
+    int checkPassword(Integer uid, String password);
+
+    int updatePasswordByUserName(User user);
 
 }
