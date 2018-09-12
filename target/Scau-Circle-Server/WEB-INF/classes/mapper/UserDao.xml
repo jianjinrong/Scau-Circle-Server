@@ -45,23 +45,23 @@
     </select>
 
     <!--校验旧密码是否正确-->
-    <select id="checkPassword" resultType="int" parameterType="map">
+    <select id="checkPassword" resultType="int" parameterType="com.pinnuli.model.User">
         SELECT COUNT(1) FROM circle_user
         <where>
-            <if test="uid != null and !&quot;&quot;.equals(uid.trim())">
-                AND id=uid
+            <if test="uid != null">
+                AND id=#{uid}
             </if>
             <if test="password != null and !&quot;&quot;.equals(password.trim())">
-                AND password=#{MD5OldPassword}
+                AND password=#{password}
             </if>
         </where>
     </select>
 
     <!--更新密码-->
-    <update id="updatePasswordByUsername" parameterType="map">
-        update mmall_user
-        SET password = #{passwordNew},update_time = now()
-        where username = #{username}
+    <update id="updatePasswordByUserName" parameterType="com.pinnuli.model.User">
+        update circle_user
+        SET password = #{password},update_time = now()
+        where id = #{uid}
     </update>
 
     <sql id="columns">id,username</sql>

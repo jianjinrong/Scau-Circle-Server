@@ -18,7 +18,7 @@ public interface UserDao {
 
     int checkUserName(String userName);
 
-    int checkPassword(Integer uid, String password);
+    int checkPassword(User user);
 
     int updatePasswordByUserName(User user);
 

@@ -44,19 +44,18 @@ public class UserController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public Result logout(HttpServletRequest request){
-        PayloadInfo payloadInfo = new PayloadInfo();
-        payloadInfo = userService.getPayloadInfo(request);
+        PayloadInfo payloadInfo = userService.getPayloadInfo(request);
         log.debug("UserController: {}", payloadInfo.getUserName());
         return userService.logout(payloadInfo);
     }
 
     @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
-    public Result resetPassword(HttpServletRequest request, String oldPassword, String newPassword) {
-        PayloadInfo payloadInfo = new PayloadInfo();
-        payloadInfo = userService.getPayloadInfo(request);
+    public Result resetPassword(HttpServletRequest request, @RequestBody Map<String, Object> params) {
+        PayloadInfo payloadInfo = userService.getPayloadInfo(request);
+        String oldPassword = params.get("oldPassword").toString();
+        String newPassword = params.get("newPassword").toString();
+
         return userService.resetPassword(payloadInfo, oldPassword, newPassword);
     }
-
-
 
 }

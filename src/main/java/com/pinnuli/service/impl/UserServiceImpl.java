@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService{
             payloadInfo.setUserName(userResult.getUserName());
 
             try {
-                String jwt = JwtUtil.createJWT("jwt", "", 600000, payloadInfo);
+                String jwt = JwtUtil.createJWT("jwt", "", 60000000, payloadInfo);
                 data.put("token", jwt);
                 return Result.createBySuccess(data);
             } catch (Exception e) {
@@ -123,17 +123,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Result<Map<String, Object>> resetPassword(PayloadInfo payloadInfo, String oldPassword, String newPassword) {
-        //校验旧密码
+
         String MD5OldPassword = MD5Util.MD5Encode(oldPassword, "utf-8");
         Integer uid = payloadInfo.getUid();
-        int resultCount = userDao.checkPassword(uid, MD5OldPassword);
+        User user = new User();
+        user.setUid(uid);
+        user.setPassword(MD5OldPassword);
+        log.debug("旧密码：{}", oldPassword);
+        //校验旧密码
+        int resultCount = userDao.checkPassword(user);
         if(resultCount == 0 ) {
             return Result.createByErrorCodeMessage(ErrorCodeEnum.PARAMETER_ERROR.getCode(), "旧密码错误！");
         }
         //旧密码校验通过，更新密码
-        User user = new User();
         String MD5NewPassword = MD5Util.MD5Encode(newPassword, "utf-8");
-        user.setUid(payloadInfo.getUid());
         user.setPassword(MD5NewPassword);
         int updateCount = userDao.updatePasswordByUserName(user);
         if (updateCount == 0) {
@@ -161,6 +164,20 @@ public class UserServiceImpl implements UserService{
             return null;
         }
     }
+
+    /*public Map<String, Object> getUserAndTokenData{
+        Map<String, Object> data = new HashMap<>();
+        data.put("user",userResult);
+        //设置过期的jwt并返回
+        try {
+            String jwt = JwtUtil.createJWT("jwt", "", 0, payloadInfo);
+            data.put("token", jwt);
+            return Result.createBySuccess(data);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }*/
 
 
 
