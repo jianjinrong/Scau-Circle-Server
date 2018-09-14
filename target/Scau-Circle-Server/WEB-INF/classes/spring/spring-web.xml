@@ -65,9 +65,7 @@
             <mvc:mapping path="/**" />
             <!-- 不进行拦截 -->
             <mvc:exclude-mapping path="/api/user/login" />
-<!--
             <mvc:exclude-mapping path="/api/user/create" />
--->
             <bean class="com.pinnuli.interceptor.JWTInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

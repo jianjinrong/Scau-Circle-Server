@@ -165,20 +165,5 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    /*public Map<String, Object> getUserAndTokenData{
-        Map<String, Object> data = new HashMap<>();
-        data.put("user",userResult);
-        //设置过期的jwt并返回
-        try {
-            String jwt = JwtUtil.createJWT("jwt", "", 0, payloadInfo);
-            data.put("token", jwt);
-            return Result.createBySuccess(data);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }*/
-
-
 
 }

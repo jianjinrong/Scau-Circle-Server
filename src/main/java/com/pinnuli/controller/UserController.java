@@ -54,7 +54,6 @@ public class UserController {
         PayloadInfo payloadInfo = userService.getPayloadInfo(request);
         String oldPassword = params.get("oldPassword").toString();
         String newPassword = params.get("newPassword").toString();
-
         return userService.resetPassword(payloadInfo, oldPassword, newPassword);
     }
 
