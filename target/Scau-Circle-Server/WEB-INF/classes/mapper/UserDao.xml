@@ -6,7 +6,7 @@
 <mapper namespace="com.pinnuli.dao.UserDao">
 
     <resultMap type="com.pinnuli.model.User" id="UserResult">
-        <id column="id" jdbcType="INTEGER" property="uid"/>
+        <id column="uid" jdbcType="INTEGER" property="uid"/>
         <result column="username" jdbcType="VARCHAR" property="userName"/>
     </resultMap>
 
@@ -49,7 +49,7 @@
         SELECT COUNT(1) FROM circle_user
         <where>
             <if test="uid != null">
-                AND id=#{uid}
+                AND uid=#{uid}
             </if>
             <if test="password != null and !&quot;&quot;.equals(password.trim())">
                 AND password=#{password}
@@ -61,8 +61,8 @@
     <update id="updatePasswordByUserName" parameterType="com.pinnuli.model.User">
         update circle_user
         SET password = #{password},update_time = now()
-        where id = #{uid}
+        where uid = #{uid}
     </update>
 
-    <sql id="columns">id,username</sql>
+    <sql id="columns">uid,username</sql>
 </mapper>

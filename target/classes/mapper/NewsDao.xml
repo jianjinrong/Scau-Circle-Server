@@ -18,7 +18,7 @@
 
     <!--条件查询-->
     <select id="queryNewsList" parameterType="java.util.Map" resultType="com.pinnuli.model.News">
-        select <include refid="columns"/> from circle_news
+        SELECT <include refid="columns"/> FROM circle_news
         <where>
             <if test="keyword != null and !&quot;&quot;.equals(keyword.trim())">
                 OR title = #{keyword}
@@ -30,8 +30,20 @@
                 AND from_id = #{columnId}
             </if>
         </where>
-        ORDER BY pub_date LIMIT #{page.dbIndex},#{page.dbNumber}
+        ORDER BY pub_date DESC LIMIT #{page.dbIndex},#{page.dbNumber}
     </select>
 
-    <sql id="columns">id, url, title, pub_date, click_times, content</sql>
+    <!--根据新闻id查询-->
+    <select id="selectNewsByNid" parameterType="int" resultType="com.pinnuli.model.News">
+        SELECT <include refid="columns"/> FROM circle_news
+        WHERE nid = #{nid}
+    </select>
+
+    <!--新闻点击量加一-->
+    <update id="addNewsClickTimes" parameterType="int">
+      UPDATE circle_news
+      SET click_times = click_times + 1
+      WHERE nid = #{nid}
+    </update>
+    <sql id="columns">nid, url, title, pub_date, click_times, content</sql>
 </mapper>

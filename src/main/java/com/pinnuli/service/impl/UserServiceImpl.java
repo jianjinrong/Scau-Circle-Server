@@ -1,5 +1,6 @@
 package com.pinnuli.service.impl;
 
+import com.pinnuli.commons.ConfigConsts;
 import com.pinnuli.commons.ErrorCodeEnum;
 import com.pinnuli.commons.Result;
 import com.pinnuli.dao.UserDao;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService{
             payloadInfo.setUserName(userResult.getUserName());
 
             try {
-                String jwt = JwtUtil.createJWT("jwt", "", 60000000, payloadInfo);
+                String jwt = JwtUtil.createJWT("jwt", "", ConfigConsts.TOKEN_LIFECYCLE, payloadInfo);
                 data.put("token", jwt);
                 return Result.createBySuccess(data);
             } catch (Exception e) {

@@ -1,12 +1,14 @@
 package com.pinnuli.service.impl;
 
 import com.pinnuli.dao.NewsDao;
+import com.pinnuli.dao.UserDao;
 import com.pinnuli.model.News;
 import com.pinnuli.service.NewsService;
 import com.pinnuli.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,19 @@ public class NewsServiceImpl implements NewsService {
         parameter.put("columnId", columnId);
         parameter.put("page", page);
         parameter.put("keyword", keyword);
-        return newsDao.queryNewsList(parameter);
+        List<News> newsList = new ArrayList<>();
+        newsList = newsDao.queryNewsList(parameter);
+        //新闻内容提取简略信息
+        for (News news: newsList) {
+            news.setContent(news.getContent().substring(0,300));
+        }
+        return newsList;
+    }
+
+    @Override
+    public News getNewsDetail(Integer nid) {
+        //新闻的点击量加一
+        newsDao.addNewsClickTimes(nid);
+        return newsDao.selectNewsByNid(nid);
     }
 }

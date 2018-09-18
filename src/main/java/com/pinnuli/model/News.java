@@ -15,7 +15,7 @@ public class News implements Serializable{
     /**
      * 新闻id
      */
-    Integer id;
+    Integer nid;
 
     /**
      * 新闻对应原文链接
@@ -58,12 +58,12 @@ public class News implements Serializable{
      */
     Date updateTime;
 
-    public Integer getId() {
-        return id;
+    public Integer getNid() {
+        return nid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNid(Integer nid) {
+        this.nid = nid;
     }
 
     public String getUrl() {

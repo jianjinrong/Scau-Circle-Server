@@ -27,4 +27,18 @@ public interface NewsDao {
      */
     List<News> queryNewsList(Map<String, Object> parameter);
 
+
+    /**
+     * 让新闻的点击量加一
+     * @param nid
+     */
+    void addNewsClickTimes(Integer nid);
+
+    /**
+     * 根据新闻id返回新闻详细信息
+     * @param nid
+     * @return
+     */
+    News selectNewsByNid(Integer nid);
+
 }
