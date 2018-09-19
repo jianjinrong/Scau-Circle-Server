@@ -1,14 +1,12 @@
-package com.pinnuli.model;
-
-import java.io.Serializable;
+package com.pinnuli.model.image;
 
 /**
- * @description: 图片实体
+ * @description: 用户头像实体
  * @author: pinnuli
- * @date: 2018-09-18
+ * @date: 2018-09-19
  */
 
-public class Image implements Serializable {
+public class UserImage implements Image{
 
     /**
      * 图片对应id
@@ -26,40 +24,46 @@ public class Image implements Serializable {
     private String webPath;
 
     /**
-     * 图片所属消息对应id
+     * 图片所属用户对应id
      */
-    private Integer mid;
+    private Integer uid;
 
-
+    @Override
     public Integer getImageId() {
         return imageId;
     }
 
+    @Override
     public void setImageId(Integer imageId) {
         this.imageId = imageId;
     }
 
+    @Override
     public String getRealPath() {
         return realPath;
     }
 
+    @Override
     public void setRealPath(String realPath) {
         this.realPath = realPath;
     }
 
+    @Override
     public String getWebPath() {
         return webPath;
     }
 
+    @Override
     public void setWebPath(String webPath) {
         this.webPath = webPath;
     }
 
-    public Integer getMid() {
-        return mid;
+
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

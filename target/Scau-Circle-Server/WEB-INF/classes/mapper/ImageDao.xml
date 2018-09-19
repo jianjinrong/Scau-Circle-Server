@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pinnuli.dao.ImageDao">
+
+    <!--插入并返回主键 begin-->
+    <!--保存广场消息图片-->
+    <insert id="saveSquareImage" parameterType="com.pinnuli.model.image.SquareImage"
+            useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+        INSERT INTO circle_square_image(real_path, web_path)
+        VALUES (#{realPath}, #{webPath})
+    </insert>
+    <!--保存用户头像图片-->
+    <insert id="saveUserImage" parameterType="com.pinnuli.model.image.UserImage"
+            useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+        INSERT INTO circle_user_image(real_path, web_path)
+        VALUES (#{realPath}, #{webPath})
+    </insert>
+    <sql id="columns">image_id, real_path, web_path</sql>
+</mapper>

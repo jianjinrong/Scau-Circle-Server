@@ -19,14 +19,20 @@
     <!--查看用户是否存在-->
     <select id="checkUserName" resultType="int" parameterType="java.lang.String" >
         SELECT COUNT(1) FROM circle_user
-        WHERE username = #{userName}
+        <if test="_parameter != null">
+            AND username = #{userName}
+        </if>
+        AND is_delete = 1
     </select>
 
     <!--根据用户名查询-->
     <select id="selectByUserName" resultMap="UserResult" parameterType="java.lang.String">
 
         SELECT <include refid="columns"/> FROM circle_user
-        WHERE username = #{userName}
+        <if test="_parameter != null">
+            AND username = #{userName}
+        </if>
+            AND is_delete = 1
         LIMIT 1
     </select>
 
@@ -40,6 +46,7 @@
             <if test="password != null and !&quot;&quot;.equals(password.trim())">
                 AND password=#{password}
             </if>
+                AND is_delete = 1
         </where>
         LIMIT 1
     </select>
@@ -54,6 +61,7 @@
             <if test="password != null and !&quot;&quot;.equals(password.trim())">
                 AND password=#{password}
             </if>
+                AND is_delete = 1
         </where>
     </select>
 

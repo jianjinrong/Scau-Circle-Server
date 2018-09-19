@@ -1,6 +1,7 @@
 package com.pinnuli.service;
 
-import com.pinnuli.model.Image;
+import com.pinnuli.model.image.SquareImage;
+import com.pinnuli.model.image.UserImage;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,5 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface ImageService {
 
-    Image create(String imageDirPath, String appRootDir, MultipartFile image);
+    SquareImage createSquareImage(String imageDirPath, String appRootDir, MultipartFile image);
+
+    UserImage createUserImage(String imageDirPath, String appRootDir, MultipartFile image);
 }

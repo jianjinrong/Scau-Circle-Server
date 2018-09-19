@@ -13,7 +13,12 @@
     <!--新闻总条数-->
     <select id="queryTotalNumber" parameterType="int" resultType="int">
         SELECT COUNT(*) FROM circle_news
-        WHERE from_id = #{columnId}
+        <where>
+            <if test="_parameter != null">
+                AND from_id = #{columnId}
+            </if>
+                AND is_delete = 1
+        </where>
     </select>
 
     <!--条件查询-->
@@ -29,6 +34,7 @@
             <if test="columnId != null">
                 AND from_id = #{columnId}
             </if>
+                AND is_delete = 1
         </where>
         ORDER BY pub_date DESC LIMIT #{page.dbIndex},#{page.dbNumber}
     </select>
@@ -36,7 +42,12 @@
     <!--根据新闻id查询-->
     <select id="selectNewsByNid" parameterType="int" resultType="com.pinnuli.model.News">
         SELECT <include refid="columns"/> FROM circle_news
-        WHERE nid = #{nid}
+        <where>
+            <if test="_parameter != null">
+                AND nid = #{nid}
+            </if>
+            AND is_delete = 1
+        </where>
     </select>
 
     <!--新闻点击量加一-->

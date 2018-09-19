@@ -2,7 +2,8 @@ package com.pinnuli.controller;
 
 import com.pinnuli.commons.ConfigConsts;
 import com.pinnuli.commons.Result;
-import com.pinnuli.model.Image;
+import com.pinnuli.model.image.SquareImage;
+import com.pinnuli.model.image.UserImage;
 import com.pinnuli.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @description:
@@ -32,13 +31,36 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public void createImage(MultipartFile image, HttpServletRequest request) {
+    @RequestMapping(value = "/square/create", method = RequestMethod.POST)
+    public Result createSquareImage(MultipartFile image, HttpServletRequest request) {
         //图片保存路径
-        String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.DEFAULT_IMAGE_DIRECTORY);
+        String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.USER_IMAGE_DIRECTORY);
         //项目根目录
         String appRootDir = request.getServletContext().getContextPath();
-        Image newImage = imageService.create(imageDirPath, appRootDir, image);
+        SquareImage squareImage = imageService.createSquareImage(imageDirPath, appRootDir, image);
+        if(squareImage == null) {
+            return Result.createByErrorMessage("上传失败");
+        }
+        Map<String, Object> data = new HashMap<>();
+        data.put("image", squareImage);
+        return Result.createBySuccess(data);
     }
+
+    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
+    public Result createUserImage(MultipartFile image, HttpServletRequest request) {
+        //图片保存路径
+        String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.USER_IMAGE_DIRECTORY);
+        //项目根目录
+        String appRootDir = request.getServletContext().getContextPath();
+        UserImage userImage = imageService.createUserImage(imageDirPath, appRootDir, image);
+        if(userImage == null) {
+            return Result.createByErrorMessage("上传失败");
+        }
+        Map<String, Object> data = new HashMap<>();
+        data.put("image", userImage);
+        return Result.createBySuccess(data);
+    }
+
+
 
 }

@@ -12,7 +12,10 @@ public class ConfigConsts {
     //token有效期
     public static final long TOKEN_LIFECYCLE = 72000000000L;
 
-    //默认图片上传目录
-    public static final String DEFAULT_IMAGE_DIRECTORY = "/images";
+    //广场消息图片上传目录
+    public static final String SQUARE_IMAGE_DIRECTORY = "/images/square";
+
+    //用户头像图片上传目录
+    public static final String USER_IMAGE_DIRECTORY = "/images/user";
 
 }
