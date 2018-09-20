@@ -2,6 +2,7 @@ package com.pinnuli.controller;
 
 import com.pinnuli.commons.ConfigConsts;
 import com.pinnuli.commons.Result;
+import com.pinnuli.model.image.Image;
 import com.pinnuli.model.image.SquareImage;
 import com.pinnuli.model.image.UserImage;
 import com.pinnuli.service.ImageService;
@@ -34,10 +35,11 @@ public class ImageController {
     @RequestMapping(value = "/square/create", method = RequestMethod.POST)
     public Result createSquareImage(MultipartFile image, HttpServletRequest request) {
         //图片保存路径
-        String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.USER_IMAGE_DIRECTORY);
+        String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.SQUARE_IMAGE_DIRECTORY);
         //项目根目录
         String appRootDir = request.getServletContext().getContextPath();
-        SquareImage squareImage = imageService.createSquareImage(imageDirPath, appRootDir, image);
+        Image squareImage = new SquareImage();
+        squareImage = imageService.createSquareOrUserImage(imageDirPath, appRootDir, image, squareImage);
         if(squareImage == null) {
             return Result.createByErrorMessage("上传失败");
         }
@@ -52,7 +54,8 @@ public class ImageController {
         String imageDirPath = request.getSession().getServletContext().getRealPath(ConfigConsts.USER_IMAGE_DIRECTORY);
         //项目根目录
         String appRootDir = request.getServletContext().getContextPath();
-        UserImage userImage = imageService.createUserImage(imageDirPath, appRootDir, image);
+        Image userImage = new UserImage();
+        userImage = imageService.createSquareOrUserImage(imageDirPath, appRootDir, image, userImage);
         if(userImage == null) {
             return Result.createByErrorMessage("上传失败");
         }

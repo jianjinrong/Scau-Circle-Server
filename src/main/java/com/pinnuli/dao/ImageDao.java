@@ -1,5 +1,6 @@
 package com.pinnuli.dao;
 
+import com.pinnuli.model.image.Image;
 import com.pinnuli.model.image.SquareImage;
 
 /**
@@ -9,8 +10,8 @@ import com.pinnuli.model.image.SquareImage;
  */
 public interface ImageDao {
 
-    Integer saveSquareImage(SquareImage squareImage);
+    Integer saveSquareImage(Image squareImage);
 
-    Integer saveUserImage(SquareImage squareImage);
+    Integer saveUserImage(Image userImage);
 
 }

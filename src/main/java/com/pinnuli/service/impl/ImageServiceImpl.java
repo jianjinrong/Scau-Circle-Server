@@ -2,6 +2,7 @@ package com.pinnuli.service.impl;
 
 import com.pinnuli.commons.ConfigConsts;
 import com.pinnuli.dao.ImageDao;
+import com.pinnuli.model.image.Image;
 import com.pinnuli.model.image.SquareImage;
 import com.pinnuli.model.image.UserImage;
 import com.pinnuli.service.ImageService;
@@ -17,7 +18,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import static com.pinnuli.utils.DateTimeUtil.getDate;
-import static com.pinnuli.utils.DateTimeUtil.getTime;
 import static com.pinnuli.utils.DateTimeUtil.newDate;
 
 /**
@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
     private ImageDao imageDao;
 
     @Override
-    public SquareImage createSquareImage(String imageDirPath, String appRootDir, MultipartFile image) {
+    public Image createSquareOrUserImage(String imageDirPath, String appRootDir, MultipartFile image, Image newImage) {
         //获取图片拓展名
         String fileName = image.getOriginalFilename();
         String fileExtensionName = fileName.substring(fileName.lastIndexOf(".")+1);
@@ -47,7 +47,12 @@ public class ImageServiceImpl implements ImageService {
         //设置图片保存的真实路径
         String realPath = imageDirPath + childDir;
         //设置web获取图片路径
-        String webPath = appRootDir + ConfigConsts.SQUARE_IMAGE_DIRECTORY + childDir +  uploadFileName;
+        String webPath = "";
+        if(newImage instanceof SquareImage) {
+            webPath = appRootDir + ConfigConsts.SQUARE_IMAGE_DIRECTORY + childDir +  uploadFileName;
+        } else {
+            webPath = appRootDir + ConfigConsts.USER_IMAGE_DIRECTORY + childDir +  uploadFileName;
+        }
         //判断文件目录是否存在，不存在则创建
         File fileDir = new File(realPath);
         if(!fileDir.exists()){
@@ -57,20 +62,25 @@ public class ImageServiceImpl implements ImageService {
         File targetFile = new File(realPath,uploadFileName);
         try {
             image.transferTo(targetFile);
-            SquareImage squareImage = new SquareImage();
-            squareImage.setRealPath(realPath);
-            squareImage.setWebPath(webPath);
-            //文件已经上传成功了，保存到数据库，并返回新插入的记录id
-            if()
-            Integer imageId = imageDao.saveSquareImage(squareImage);
-            squareImage.setImageId(imageId);
-            //真实路径设为null
-            squareImage.setRealPath(null);
-            return squareImage;
         } catch (IOException e) {
             log.error("上传文件异常",e);
+            return null;
         }
-        return null;
+        newImage.setRealPath(realPath);
+        newImage.setWebPath(webPath);
+        //文件已经上传成功了，保存到数据库，并返回新插入的记录id
+        int insertResult = 0;
+        if (newImage instanceof SquareImage) {
+            insertResult= imageDao.saveSquareImage(newImage);
+        } else {
+            insertResult= imageDao.saveUserImage(newImage);
+        }
+        if(insertResult == 0) {
+            return null;
+        }
+        //真实路径设为null
+        newImage.setRealPath(null);
+        return newImage;
     }
 
     @Override

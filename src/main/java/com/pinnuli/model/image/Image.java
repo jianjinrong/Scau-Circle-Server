@@ -5,17 +5,44 @@ package com.pinnuli.model.image;
  * @author: pinnuli
  * @date: 2018-09-19
  */
-public interface Image {
-    Integer getImageId();
+public class Image {
+    /**
+     * 图片对应id
+     */
+    protected Integer imageId;
 
-    void setImageId(Integer imageId);
+    /**
+     * 图片真实路径
+     */
+    protected String realPath;
 
-    String getRealPath();
+    /**
+     * 图片相对路径
+     */
+    protected String webPath;
 
-    void setRealPath(String realPath);
+    public Integer getImageId() {
+        return imageId;
+    }
 
-    String getWebPath();
+    public void setImageId(Integer imageId) {
+        this.imageId = imageId;
+    }
 
-    void setWebPath(String webPath);
+    public String getRealPath() {
+        return realPath;
+    }
+
+    public void setRealPath(String realPath) {
+        this.realPath = realPath;
+    }
+
+    public String getWebPath() {
+        return webPath;
+    }
+
+    public void setWebPath(String webPath) {
+        this.webPath = webPath;
+    }
 
 }
