@@ -8,16 +8,23 @@ package com.pinnuli.model.image;
 
 public class UserImage extends Image{
 
+    public UserImage() {
+
+    }
+
+    public UserImage(Integer userId) {
+        this.userId = userId;
+    }
     /**
      * 图片所属用户对应id
      */
-    private Integer uid;
+    private Integer userId;
 
-    public Integer getUid() {
-        return uid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

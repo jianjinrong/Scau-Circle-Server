@@ -1,15 +1,20 @@
 package com.pinnuli.model.image;
 
+import java.io.Serializable;
+
 /**
  * @description: 上传图片接口
  * @author: pinnuli
  * @date: 2018-09-19
  */
-public class Image {
+
+public class Image implements Serializable{
+
+    private static final long serialVersionUID = 1L;
     /**
      * 图片对应id
      */
-    protected Integer imageId;
+    protected Integer id;
 
     /**
      * 图片真实路径
@@ -21,12 +26,12 @@ public class Image {
      */
     protected String webPath;
 
-    public Integer getImageId() {
-        return imageId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setImageId(Integer imageId) {
-        this.imageId = imageId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getRealPath() {

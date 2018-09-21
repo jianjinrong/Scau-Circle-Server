@@ -30,15 +30,15 @@ public interface NewsDao {
 
     /**
      * 让新闻的点击量加一
-     * @param nid
+     * @param newsId
      */
-    void addNewsClickTimes(Integer nid);
+    void addNewsClickTimes(Integer newsId);
 
     /**
      * 根据新闻id返回新闻详细信息
-     * @param nid
+     * @param newsId
      * @return
      */
-    News selectNewsByNid(Integer nid);
+    News selectNewsByNid(Integer newsId);
 
 }

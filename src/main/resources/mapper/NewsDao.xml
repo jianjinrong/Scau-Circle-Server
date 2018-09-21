@@ -44,7 +44,7 @@
         SELECT <include refid="columns"/> FROM circle_news
         <where>
             <if test="_parameter != null">
-                AND nid = #{nid}
+                AND id = #{newsId}
             </if>
             AND is_delete = 1
         </where>
@@ -54,7 +54,7 @@
     <update id="addNewsClickTimes" parameterType="int">
       UPDATE circle_news
       SET click_times = click_times + 1
-      WHERE nid = #{nid}
+      WHERE id = #{newsId}
     </update>
-    <sql id="columns">nid, url, title, pub_date, click_times, content</sql>
+    <sql id="columns">id, url, title, pub_date, click_times, content</sql>
 </mapper>

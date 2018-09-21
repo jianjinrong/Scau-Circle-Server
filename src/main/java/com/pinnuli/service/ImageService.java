@@ -13,5 +13,5 @@ public interface ImageService {
 
     Image createSquareOrUserImage(String imageDirPath, String appRootDir, MultipartFile image, Image newImage);
 
-    UserImage createUserImage(String imageDirPath, String appRootDir, MultipartFile image);
+    Integer setSquareImageMessageId(Integer imageId, Integer mid);
 }

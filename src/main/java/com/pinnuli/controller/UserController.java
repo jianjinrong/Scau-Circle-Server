@@ -56,5 +56,4 @@ public class UserController {
         String newPassword = params.get("newPassword").toString();
         return userService.resetPassword(payloadInfo, oldPassword, newPassword);
     }
-
 }

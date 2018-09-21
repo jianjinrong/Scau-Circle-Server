@@ -55,7 +55,7 @@ public class JWTInterceptor implements HandlerInterceptor {
                 c = JwtUtil.parseJWT(jwt);
                 //验证用户名是否正确
                 if(c.get("userName").equals(userName)) {
-                    log.info("用户id" + c.get("uid") + "已是登录状态");
+                    log.info("用户id" + c.get("userId") + "已是登录状态");
                     return true;
                 }
             }

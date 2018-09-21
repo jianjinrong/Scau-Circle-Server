@@ -40,7 +40,7 @@ public class JwtUtil {
 
         //将payloadInfo转换为Claims类型
         Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("uid", payloadInfo.getUid());
+        claims.put("userId", payloadInfo.getUserId());
         claims.put("userName", payloadInfo.getUserName());
         // 下面就是在为payload添加各种标准声明和私有声明了
         JwtBuilder builder = Jwts.builder()
@@ -73,7 +73,7 @@ public class JwtUtil {
         Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .parseClaimsJws(jwt).getBody();
-        log.debug("jwtutil:{}",claims.get("uid"));
+        log.debug("jwtutil:{}",claims.get("userId"));
         return claims;
     }
 

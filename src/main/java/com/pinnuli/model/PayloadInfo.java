@@ -8,16 +8,16 @@ package com.pinnuli.model;
 
 public class PayloadInfo {
 
-    private Integer uid;
+    private Integer userId;
+
     private String userName;
 
-
-    public Integer getUid() {
-        return uid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

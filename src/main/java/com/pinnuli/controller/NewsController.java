@@ -31,8 +31,8 @@ public class NewsController {
     private NewsDao newsDao;
 
     //返回新闻简略信息数组
-    @RequestMapping(value = "/newsList/{columnId}/{currentPage}", method = RequestMethod.GET)
-    public Result queryList(@PathVariable Integer columnId,
+    @RequestMapping(value = "/newsList/{fromId}/{currentPage}", method = RequestMethod.GET)
+    public Result queryList(@PathVariable Integer fromId,
                             @PathVariable Integer currentPage,
                             @RequestParam(name = "keyword", required = false) String keyword) {
         //创建分页对象
@@ -42,7 +42,7 @@ public class NewsController {
         } else {
             page.setCurrentPage(currentPage);
         }
-        List<News> newsList = newsService.queryNewsList(columnId, page, keyword);
+        List<News> newsList = newsService.queryNewsList(fromId, page, keyword);
         if (newsList == null) {
             return Result.createByError(ResultCodeEnum.RESULT_CODE_NOT_FOUND);
         }
@@ -53,9 +53,9 @@ public class NewsController {
     }
 
     //返回新闻详细信息
-    @RequestMapping(value = "/detailNews/{nid}", method = RequestMethod.GET)
-    public Result detailNews(@PathVariable Integer nid) {
-        News news = newsService.getNewsDetail(nid);
+    @RequestMapping(value = "/detailNews/{newsId}", method = RequestMethod.GET)
+    public Result detailNews(@PathVariable Integer newsId) {
+        News news = newsService.getNewsDetail(newsId);
         if (news == null) {
             return Result.createByError(ResultCodeEnum.RESULT_CODE_NOT_FOUND);
         }
@@ -63,6 +63,4 @@ public class NewsController {
         data.put("news", news);
         return Result.createBySuccess(data);
     }
-
-
 }

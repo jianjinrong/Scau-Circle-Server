@@ -51,9 +51,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News getNewsDetail(Integer nid) {
+    public News getNewsDetail(Integer newsId) {
         //新闻的点击量加一
-        newsDao.addNewsClickTimes(nid);
-        return newsDao.selectNewsByNid(nid);
+        newsDao.addNewsClickTimes(newsId);
+        return newsDao.selectNewsByNid(newsId);
     }
 }

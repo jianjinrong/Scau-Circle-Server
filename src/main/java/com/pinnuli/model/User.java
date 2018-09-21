@@ -1,7 +1,5 @@
 package com.pinnuli.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.io.Serializable;
 
 /**
@@ -11,12 +9,12 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1361595756726482849L;
 
     /**
      * 用户对应id
      */
-    private Integer uid;
+    private Integer id;
 
     /**
      * 用户名
@@ -28,13 +26,12 @@ public class User implements Serializable {
      */
     private String password;
 
-
-    public Integer getUid() {
-        return uid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -55,7 +52,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "id: " + this.getUid() + "用户：" + this.getUserName();
+        return "id: " + this.getId() + "用户：" + this.getUserName();
     }
 
 }

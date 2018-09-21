@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
 
             //登录成功 设置jwt
             PayloadInfo payloadInfo = new PayloadInfo();
-            payloadInfo.setUid(userResult.getUid());
+            payloadInfo.setUserId(userResult.getId());
             payloadInfo.setUserName(userResult.getUserName());
 
             try {
@@ -126,9 +126,9 @@ public class UserServiceImpl implements UserService{
     public Result<Map<String, Object>> resetPassword(PayloadInfo payloadInfo, String oldPassword, String newPassword) {
 
         String MD5OldPassword = MD5Util.MD5Encode(oldPassword, "utf-8");
-        Integer uid = payloadInfo.getUid();
+        Integer userId = payloadInfo.getUserId();
         User user = new User();
-        user.setUid(uid);
+        user.setId(userId);
         user.setPassword(MD5OldPassword);
         log.debug("旧密码：{}", oldPassword);
         //校验旧密码
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService{
         if(!jwt.isEmpty() && !currentUserName.isEmpty()) {
             try {
                 Claims claims = JwtUtil.parseJWT(jwt);
-                payloadInfo.setUid(Integer.parseInt(claims.get("uid").toString()));
+                payloadInfo.setUserId(Integer.parseInt(claims.get("userId").toString()));
                 payloadInfo.setUserName(claims.get("userName").toString());
                 return payloadInfo;
             } catch (Exception e) {

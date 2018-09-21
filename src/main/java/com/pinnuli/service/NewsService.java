@@ -15,6 +15,6 @@ public interface NewsService {
 
     List<News> queryNewsList(Integer columnId, PageUtil page, String keyword);
 
-    News getNewsDetail(Integer nid);
+    News getNewsDetail(Integer newsId);
 
 }

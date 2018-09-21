@@ -8,15 +8,24 @@
     <!--插入并返回主键 begin-->
     <!--保存广场消息图片-->
     <insert id="saveSquareImage" parameterType="com.pinnuli.model.image.SquareImage"
-            useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO circle_square_image(real_path, web_path)
         VALUES (#{realPath}, #{webPath})
     </insert>
     <!--保存用户头像图片-->
     <insert id="saveUserImage" parameterType="com.pinnuli.model.image.UserImage"
-            useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
-        INSERT INTO circle_user_image(real_path, web_path)
-        VALUES (#{realPath}, #{webPath})
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO circle_user_image(real_path, web_path, user_id)
+        VALUES (#{realPath}, #{webPath}, #{userId})
     </insert>
+    <!--插入并返回主键 end-->
+
+    <!--设置广场消息图片对应消息id-->
+    <update id="setSquareImageMessageId" parameterType="map">
+        UPDATE circle_square_image
+        SET message_id = #{messageId}
+        WHERE image_id = #{imageId}
+    </update>
     <sql id="columns">image_id, real_path, web_path</sql>
+
 </mapper>

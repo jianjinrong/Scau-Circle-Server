@@ -13,13 +13,13 @@ public class SquareImage extends Image{
     /**
      * 图片所属消息对应id
      */
-    private Integer mid;
+    private Integer messageId;
 
-    public Integer getMid() {
-        return mid;
+    public Integer getMessageId() {
+        return messageId;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
     }
 }

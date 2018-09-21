@@ -11,59 +11,59 @@ import java.util.Date;
 
 public class News implements Serializable{
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -473060351338400477L;
     /**
      * 新闻id
      */
-    Integer nid;
+    private Integer id;
 
     /**
      * 新闻对应原文链接
      */
-    String url;
+    private String url;
 
     /**
      * 新闻标题
      */
-    String title;
+    private String title;
 
 
     /**
      * 新闻标签
      */
-    String label;
+    private String label;
 
     /**
      * 新闻发布时间
      */
-    Date pubDate;
+    private Date pubDate;
 
     /**
      * 点击量
      */
-    int clickTimes;
+    private Integer clickTimes;
 
     /**
      * 新闻内容
      */
-    String content;
+    private String content;
 
     /**
      * 创建时间
      */
-    Date createTime;
+    private Date createTime;
 
     /**
      * 修改时间
      */
-    Date updateTime;
+    private Date updateTime;
 
-    public Integer getNid() {
-        return nid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNid(Integer nid) {
-        this.nid = nid;
+    public void setId(Integer nid) {
+        this.id = nid;
     }
 
     public String getUrl() {

@@ -6,7 +6,7 @@
 <mapper namespace="com.pinnuli.dao.UserDao">
 
     <resultMap type="com.pinnuli.model.User" id="UserResult">
-        <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="userName"/>
     </resultMap>
 
@@ -19,20 +19,24 @@
     <!--查看用户是否存在-->
     <select id="checkUserName" resultType="int" parameterType="java.lang.String" >
         SELECT COUNT(1) FROM circle_user
-        <if test="_parameter != null">
-            AND username = #{userName}
-        </if>
-        AND is_delete = 1
+        <where>
+            <if test="_parameter != null">
+                AND username = #{userName}
+            </if>
+            AND is_delete = 1
+        </where>
     </select>
 
     <!--根据用户名查询-->
     <select id="selectByUserName" resultMap="UserResult" parameterType="java.lang.String">
 
         SELECT <include refid="columns"/> FROM circle_user
-        <if test="_parameter != null">
-            AND username = #{userName}
-        </if>
+        <where>
+            <if test="_parameter != null">
+                AND username = #{userName}
+            </if>
             AND is_delete = 1
+        </where>
         LIMIT 1
     </select>
 
@@ -55,8 +59,8 @@
     <select id="checkPassword" resultType="int" parameterType="com.pinnuli.model.User">
         SELECT COUNT(1) FROM circle_user
         <where>
-            <if test="uid != null">
-                AND uid=#{uid}
+            <if test="id != null">
+                AND id=#{id}
             </if>
             <if test="password != null and !&quot;&quot;.equals(password.trim())">
                 AND password=#{password}
@@ -67,10 +71,10 @@
 
     <!--更新密码-->
     <update id="updatePasswordByUserName" parameterType="com.pinnuli.model.User">
-        update circle_user
-        SET password = #{password},update_time = now()
-        where uid = #{uid}
+        UPDATE circle_user
+        SET password = #{password}
+        WHERE id = #{id}
     </update>
 
-    <sql id="columns">uid,username</sql>
+    <sql id="columns">id,username</sql>
 </mapper>

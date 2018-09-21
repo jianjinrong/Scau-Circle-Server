@@ -14,4 +14,6 @@ public interface ImageDao {
 
     Integer saveUserImage(Image userImage);
 
+    Integer setSquareImageMessageId(Integer imageId, Integer messageId);
+
 }
