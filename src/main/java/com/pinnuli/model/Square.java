@@ -1,6 +1,7 @@
 package com.pinnuli.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @date: 2018-09-21
  */
 
-public class LostAndFind implements Serializable {
+public class Square implements Serializable {
 
     private static final long serialVersionUID = -7079996901269289884L;
 
@@ -20,9 +21,14 @@ public class LostAndFind implements Serializable {
     private Integer id;
 
     /**
+     * 消息所属栏目id
+     */
+    private Integer squareId;
+
+    /**
      * 消息发布人id
      */
-    private Integer uid;
+    private Integer userId;
 
     /**
      * 消息标题
@@ -49,6 +55,11 @@ public class LostAndFind implements Serializable {
      * 联系人微信
      */
     private String wechat;
+
+    /**
+     * 价格
+     */
+    private BigDecimal price;
 
     /**
      * 点击量
@@ -83,12 +94,20 @@ public class LostAndFind implements Serializable {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getSquareId() {
+        return squareId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setSquareId(Integer squareId) {
+        this.squareId = squareId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -121,6 +140,14 @@ public class LostAndFind implements Serializable {
 
     public void setWechat(String wechat) {
         this.wechat = wechat;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Integer getClickTimes() {
@@ -162,4 +189,13 @@ public class LostAndFind implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public List<Integer> getImageIdList() {
+        return imageIdList;
+    }
+
+    public void setImageIdList(List<Integer> imageIdList) {
+        this.imageIdList = imageIdList;
+    }
+
 }
