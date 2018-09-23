@@ -15,7 +15,7 @@
         SELECT COUNT(*) FROM circle_news
         <where>
             <if test="_parameter != null">
-                AND from_id = #{columnId}
+                AND from_id = #{column}
             </if>
                 AND is_delete = 1
         </where>
@@ -31,8 +31,8 @@
             <if test="keyword != null and !&quot;&quot;.equals(keyword.trim())">
                 OR content like &quot;%&quot; #{keyword} &quot;%&quot;
             </if>
-            <if test="columnId != null">
-                AND from_id = #{columnId}
+            <if test="column != null">
+                AND from_id = #{column}
             </if>
                 AND is_delete = 1
         </where>

@@ -2,6 +2,8 @@ package com.pinnuli.dao;
 
 import com.pinnuli.model.Square;
 
+import java.util.Map;
+
 /**
  * @description:
  * @author: pinnuli
@@ -11,6 +13,10 @@ import com.pinnuli.model.Square;
 public interface SquareDao {
 
     int save(Square square);
+
+    int setImageMessageIdBatch(Map<String, Object> parameter);
+
+    int selectColumnIdByName(String column);
 
     int checkIsContact(String column);
 

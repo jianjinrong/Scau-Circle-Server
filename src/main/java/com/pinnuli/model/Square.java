@@ -21,9 +21,9 @@ public class Square implements Serializable {
     private Integer id;
 
     /**
-     * 消息所属栏目id
+     * 消息所属栏目
      */
-    private Integer squareId;
+    private String column;
 
     /**
      * 消息发布人id
@@ -94,12 +94,12 @@ public class Square implements Serializable {
         this.id = id;
     }
 
-    public Integer getSquareId() {
-        return squareId;
+    public String getColumn() {
+        return column;
     }
 
-    public void setSquareId(Integer squareId) {
-        this.squareId = squareId;
+    public void setColumn(String column) {
+        this.column = column;
     }
 
     public Integer getUserId() {

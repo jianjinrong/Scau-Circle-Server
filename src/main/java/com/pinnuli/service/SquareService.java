@@ -1,5 +1,6 @@
 package com.pinnuli.service;
 
+import com.pinnuli.commons.Result;
 import com.pinnuli.model.Square;
 
 import java.util.List;
@@ -10,23 +11,25 @@ import java.util.Map;
  * @author: pinnuli
  * @date: 2018-09-21
  */
-public interface SquareService<T> {
+public interface SquareService {
 
     /**
      * 保存广场消息
      * @param square 需要保存的消息
      * @return 返回影响数据库行数
      */
-    Integer save(Square square);
+    Result save(Square square);
 
     Integer setImageMessageIdBatch(Map<String, Object> parameter);
+
+    Integer selectColumnIdByName(String column);
 
     /**
      * 校验某参数是否为空
      * @param parameter 要校验的参数
      * @return 检验结果
      */
-    boolean checkIsNotNull(T parameter);
+//    boolean checkIsNull(T parameter);
 
     /**
      * 校验是否需要联系信息

@@ -13,7 +13,7 @@
             <if test="userId != null" >
                 user_id,
             </if>
-            <if test="columnId != null" >
+            <if test="column != null" >
                 column_id,
             </if>
             <if test="title != null" >
@@ -36,8 +36,8 @@
             <if test="userId != null" >
                 #{userId},
             </if>
-            <if test="columnId != null" >
-                #{columnId},
+            <if test="column != null" >
+                (SELECT id FROM circle_square_column WHERE name = #{column}),
             </if>
             <if test="title != null" >
                 #{title},
@@ -57,9 +57,19 @@
         </trim>
     </insert>
 
+    <!--批量设置图片对应的消息id-->
+    <update id="setImageMessageIdBatch" parameterType="map">
+        UPDATE circle_square_image
+        SET message_id #{messageId}
+        WHERE id in
+        <foreach collection="imageIdList" item="imageId" separator="," open="(" close=")">
+            #{imageId}
+        </foreach>
+    </update>
+
     <!--检验是否需要联系人信息-->
     <select id="checkIsContact" parameterType="string" resultType="int">
-        SELECT is_goods FROM circle_square_column
+        SELECT is_contact FROM circle_square_column
         WHERE NAME = #{column}
     </select>
 
