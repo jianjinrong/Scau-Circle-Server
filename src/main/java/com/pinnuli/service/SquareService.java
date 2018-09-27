@@ -18,11 +18,30 @@ public interface SquareService {
      * @param square 需要保存的消息
      * @return 返回影响数据库行数
      */
-    Result save(Square square);
+    Result saveOrUpdateMessage(Square square);
 
+
+    /**
+     * 删除广场消息，软删除
+     * @param messageId 消息id
+     * @return 返回操作结果
+     */
+    Result deleteMessage(int messageId);
+
+    /**
+     * 批量设置广场消息所带图片的消息id
+     * @param parameter 包括图片id的列表和消息的id
+     * @return 返回影响行数
+     */
     Integer setImageMessageIdBatch(Map<String, Object> parameter);
 
+    /**
+     * 根据广场栏目名称获取其id
+     * @param column 广场栏目名称
+     * @return 返回栏目id
+     */
     Integer selectColumnIdByName(String column);
+
 
     /**
      * 校验某参数是否为空

@@ -12,13 +12,17 @@ import java.util.Map;
 
 public interface SquareDao {
 
-    int save(Square square);
+    Integer saveMessage(Square square);
 
-    int setImageMessageIdBatch(Map<String, Object> parameter);
+    Integer updateMessageById(Square square);
 
-    int selectColumnIdByName(String column);
+    Integer setImageMessageIdBatch(Map<String, Object> parameter);
 
-    int checkIsContact(String column);
+    Integer deleteMessage(int messageId);
 
-    int checkIsGoods(String column);
+    Integer selectColumnIdByName(String column);
+
+    Integer checkIsContact(String column);
+
+    Integer checkIsGoods(String column);
 }

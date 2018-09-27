@@ -6,9 +6,9 @@
 <mapper namespace="com.pinnuli.dao.SquareDao">
 
     <!--保存消息-->
-    <insert id="save" parameterType="com.pinnuli.model.Square"
+    <insert id="saveMessage" parameterType="com.pinnuli.model.Square"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO circle_square
+        INSERT INTO circle_square_message
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="userId != null" >
                 user_id,
@@ -57,14 +57,43 @@
         </trim>
     </insert>
 
+    <update id="updateMessageById" parameterType="com.pinnuli.model.Square" >
+        update circle_square_message
+        <set >
+            <if test="title != null" >
+                title = #{title},
+            </if>
+            <if test="content != null" >
+                content = #{content},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone},
+            </if>
+            <if test="wechat != null" >
+                wechat = #{wechat},
+            </if>
+            <if test="price != null" >
+                price = #{price},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <!--批量设置图片对应的消息id-->
     <update id="setImageMessageIdBatch" parameterType="map">
         UPDATE circle_square_image
-        SET message_id #{messageId}
+        SET message_id = #{messageId}
         WHERE id in
         <foreach collection="imageIdList" item="imageId" separator="," open="(" close=")">
             #{imageId}
         </foreach>
+    </update>
+
+    <!--删除消息，软删除-->
+    <update id="deleteMessage" parameterType="int">
+        UPDATE circle_square_message
+        SET is_delete = 1
+        WHERE id = #{messageId}
     </update>
 
     <!--检验是否需要联系人信息-->

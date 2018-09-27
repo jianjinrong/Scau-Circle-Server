@@ -5,12 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @description:
- * @author: pinnuli
- * @date: 2018-09-21
- */
-
 public class Square implements Serializable {
 
     private static final long serialVersionUID = -7079996901269289884L;

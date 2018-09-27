@@ -20,11 +20,18 @@
     </insert>
     <!--插入并返回主键 end-->
 
-    <!--设置广场消息图片对应消息id-->
+    <!--批量设置广场消息图片对应消息id-->
     <update id="setSquareImageMessageId" parameterType="map">
         UPDATE circle_square_image
         SET message_id = #{messageId}
         WHERE image_id = #{imageId}
+    </update>
+
+    <!--批量删除广场消息图片-->
+    <update id="deleteSquareImageBatch" parameterType="int">
+        UPDATE circle_square_image
+        SET is_delete = 1
+        WHERE message_id = #{messageId}
     </update>
     <sql id="columns">image_id, real_path, web_path</sql>
 

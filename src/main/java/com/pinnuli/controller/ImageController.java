@@ -11,9 +11,7 @@ import com.pinnuli.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,4 +69,23 @@ public class ImageController {
         return Result.createBySuccess(data);
     }
 
+    @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE)
+    public Result deleteUserImage(@RequestParam int userImageId) {
+        int deleteResult = imageService.deleteUserImage(userImageId);
+        if(deleteResult > 0) {
+            return Result.createBySuccess();
+        } else {
+            return Result.createByError();
+        }
+    }
+
+    @RequestMapping(value = "/square/delete", method = RequestMethod.DELETE)
+    public Result deleteSquareImage(@RequestParam int squareImageId) {
+        int deleteResult = imageService.deleteSquareImage(squareImageId);
+        if(deleteResult > 0) {
+            return Result.createBySuccess();
+        } else {
+            return Result.createByError();
+        }
+    }
 }

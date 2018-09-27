@@ -74,6 +74,21 @@ public class ImageServiceImpl implements ImageService {
         return imageDao.setSquareImageMessageId(imageId, mid);
     }
 
+    @Override
+    public Integer deleteUserImage(int userImageId) {
+        return imageDao.deleteUserImage(userImageId);
+    }
+
+    @Override
+    public Integer deleteSquareImage(int squareImageId) {
+        return imageDao.deleteSquareImage(squareImageId);
+    }
+
+    @Override
+    public Integer deleteSquareImageBatch(int messageId) {
+        return imageDao.deleteSquareImageBatch(messageId);
+    }
+
 
     /**
      * @param imageDirPath 图片保存主目录

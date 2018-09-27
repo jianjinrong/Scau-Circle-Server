@@ -14,4 +14,10 @@ public interface ImageService {
     Image createSquareOrUserImage(String imageDirPath, String appRootDir, MultipartFile image, Image newImage);
 
     Integer setSquareImageMessageId(Integer imageId, Integer mid);
+
+    Integer deleteUserImage(int userImageId);
+
+    Integer deleteSquareImage(int squareImageId);
+
+    Integer deleteSquareImageBatch(int messageId);
 }

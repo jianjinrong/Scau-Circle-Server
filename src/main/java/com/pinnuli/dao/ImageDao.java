@@ -16,4 +16,9 @@ public interface ImageDao {
 
     Integer setSquareImageMessageId(Integer imageId, Integer messageId);
 
+    Integer deleteUserImage(int userImageId);
+
+    Integer deleteSquareImage(int squareImageId);
+
+    Integer deleteSquareImageBatch(int messageId);
 }

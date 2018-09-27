@@ -2,8 +2,10 @@ package com.pinnuli.service.impl;
 
 import com.pinnuli.commons.ErrorCodeEnum;
 import com.pinnuli.commons.Result;
+import com.pinnuli.dao.ImageDao;
 import com.pinnuli.dao.SquareDao;
 import com.pinnuli.model.Square;
+import com.pinnuli.service.ImageService;
 import com.pinnuli.service.SquareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +29,11 @@ public class SquareServiceImpl implements SquareService {
     @Autowired
     private SquareDao squareDao;
 
+    @Autowired
+    private ImageDao imageDao;
+
     @Override
-    public Result save(Square square) {
+    public Result saveOrUpdateMessage(Square square) {
         String column = square.getColumn();
         //判断消息是否需要联系方式，电话号码和微信不能同时为空
         boolean is_contact = checkIsContact(column);
@@ -46,9 +51,13 @@ public class SquareServiceImpl implements SquareService {
         }
 
         //保存消息
-        int saveResult;
-        saveResult = squareDao.save(square);
-        if (saveResult == 0) {
+        int result = 0;
+        if(square.getId() == null) {
+            result = squareDao.saveMessage(square);
+        } else {
+            result = squareDao.updateMessageById(square);
+        }
+        if (result == 0) {
             return Result.createByErrorCodeEnum(ErrorCodeEnum.DB_EXCEPTION);
         }
 
@@ -64,6 +73,17 @@ public class SquareServiceImpl implements SquareService {
             }
         }
         return Result.createBySuccess();
+    }
+
+    @Override
+    public Result deleteMessage(int messageId) {
+        int deleteResult = squareDao.deleteMessage(messageId);
+        if(deleteResult > 0) {
+            imageDao.deleteSquareImageBatch(messageId);
+            return Result.createBySuccess();
+        }
+        return Result.createByError();
+
     }
 
     @Override
