@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pinnuli.dao.square.CommentDao">
+
+    <!--保存评论-->
+    <insert id="saveComment" parameterType="com.pinnuli.model.square.Comment"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO circle_square_comment
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="messageId != null" >
+                message_id,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="messageId != null" >
+                #{messageId},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+        </trim>
+    </insert>
+
+    <!--删除评论，软删除-->
+    <update id="deleteComment" parameterType="int">
+        UPDATE circle_square_comment
+        SET is_delete = 1
+        WHERE id = #{commentId}
+    </update>
+
+    <!--根据消息id和页数获取评论列表-->
+    <select id="listCommentByPage" parameterType="map" resultType="com.pinnuli.model.square.Comment">
+        SELECT <include refid="columns"/> FROM circle_square_message
+        WHERE message_id = #{messageId}
+        ORDER BY pub_time DESC LIMIT #{page.dbIndex},#{page.dbNumber}
+    </select>
+
+    <sql id="columns">id, user_id, content, pub_time</sql>
+</mapper>

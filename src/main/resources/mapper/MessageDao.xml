@@ -3,20 +3,129 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pinnuli.dao.MessageDao">
+<mapper namespace="com.pinnuli.dao.square.MessageDao">
 
-    <!--<resultMap type="com.pinnuli.model.Message" id="MessageResult">
-        <id column="ID" jdbcType="INTEGER" property="id"/>
-        <result column="COMMAND" jdbcType="VARCHAR" property="command"/>
-        <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
-        <result column="CONTENT_A" jdbcType="VARCHAR" property="content"/>
-    </resultMap>-->
+    <!--保存消息-->
+    <insert id="saveMessage" parameterType="com.pinnuli.model.square.Message"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO circle_square_message
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="column != null" >
+                column_id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="wechat != null" >
+                wechat,
+            </if>
+            <if test="price != null" >
+                price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="column != null" >
+                (SELECT id FROM circle_square_column WHERE name = #{column}),
+            </if>
+            <if test="title != null" >
+                #{title},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="wechat != null" >
+                #{wechat},
+            </if>
+            <if test="price != null" >
+                #{price},
+            </if>
+        </trim>
+    </insert>
 
-    <!--条件查询-->
-    <select id="query" resultType="com.pinnuli.model.Message">
-        select <include refid="columns"/> from message
-        ORDER BY ID
+    <update id="updateMessageById" parameterType="com.pinnuli.model.square.Message" >
+        update circle_square_message
+        <set >
+            <if test="title != null" >
+                title = #{title},
+            </if>
+            <if test="content != null" >
+                content = #{content},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone},
+            </if>
+            <if test="wechat != null" >
+                wechat = #{wechat},
+            </if>
+            <if test="price != null" >
+                price = #{price},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--批量设置图片对应的消息id-->
+    <update id="setImageMessageIdBatch" parameterType="map">
+        UPDATE circle_square_image
+        SET message_id = #{messageId}
+        WHERE id in
+        <foreach collection="imageIdList" item="imageId" separator="," open="(" close=")">
+            #{imageId}
+        </foreach>
+    </update>
+
+    <!--删除消息，软删除-->
+    <update id="deleteMessage" parameterType="int">
+        UPDATE circle_square_message
+        SET is_delete = 1
+        WHERE id = #{messageId}
+    </update>
+
+    <!--检验是否需要联系人信息-->
+    <select id="checkIsContact" parameterType="string" resultType="int">
+        SELECT is_contact FROM circle_square_column
+        WHERE NAME = #{column}
     </select>
 
-    <sql id="columns">ID,COMMAND,DESCRIPTION,CONTENT_A</sql>
+    <!--校验是否是交易信息-->
+    <select id="checkIsGoods" parameterType="string" resultType="int">
+        SELECT is_goods, id FROM circle_square_column
+        WHERE NAME = #{column}
+    </select>
+
+    <!--根据栏目名称和页数获取新闻简略信息略表-->
+    <select id="listMessageByColumn" parameterType="map" resultType="com.pinnuli.model.square.Message">
+        SELECT <include refid="columns"/> FROM circle_square_message
+        <where>
+            <if test="keyword != null and !&quot;&quot;.equals(keyword.trim())">
+                OR title = #{keyword}
+            </if>
+            <if test="keyword != null and !&quot;&quot;.equals(keyword.trim())">
+                OR content like &quot;%&quot; #{keyword} &quot;%&quot;
+            </if>
+            <if test="column != null">
+                AND message_id = (SELECT id FROM circle_square_column WHERE name = #{column})
+            </if>
+            AND is_delete = 1
+            AND status = 1
+        </where>
+        ORDER BY pub_time DESC LIMIT #{page.dbIndex},#{page.dbNumber}
+    </select>
+
+    <sql id="columns">id, title, content, phone, wechat, price, click_times, pub_time</sql>
 </mapper>

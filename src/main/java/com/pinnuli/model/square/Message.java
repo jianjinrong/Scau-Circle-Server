@@ -1,11 +1,11 @@
-package com.pinnuli.model;
+package com.pinnuli.model.square;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class Square implements Serializable {
+public class Message implements Serializable {
 
     private static final long serialVersionUID = -7079996901269289884L;
 

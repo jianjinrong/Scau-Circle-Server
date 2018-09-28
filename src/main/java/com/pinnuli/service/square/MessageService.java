@@ -1,9 +1,8 @@
-package com.pinnuli.service;
+package com.pinnuli.service.square;
 
 import com.pinnuli.commons.Result;
-import com.pinnuli.model.Square;
+import com.pinnuli.model.square.Message;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,14 +10,14 @@ import java.util.Map;
  * @author: pinnuli
  * @date: 2018-09-21
  */
-public interface SquareService {
+public interface MessageService {
 
     /**
      * 保存广场消息
-     * @param square 需要保存的消息
+     * @param message 需要保存的消息
      * @return 返回影响数据库行数
      */
-    Result saveOrUpdateMessage(Square square);
+    Result saveOrUpdateMessage(Message message);
 
 
     /**

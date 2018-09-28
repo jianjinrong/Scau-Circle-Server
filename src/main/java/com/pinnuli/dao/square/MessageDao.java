@@ -1,7 +1,8 @@
-package com.pinnuli.dao;
+package com.pinnuli.dao.square;
 
-import com.pinnuli.model.Square;
+import com.pinnuli.model.square.Message;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,11 +11,11 @@ import java.util.Map;
  * @date: 2018-09-21
  */
 
-public interface SquareDao {
+public interface MessageDao {
 
-    Integer saveMessage(Square square);
+    Integer saveMessage(Message message);
 
-    Integer updateMessageById(Square square);
+    Integer updateMessageById(Message message);
 
     Integer setImageMessageIdBatch(Map<String, Object> parameter);
 
@@ -25,4 +26,6 @@ public interface SquareDao {
     Integer checkIsContact(String column);
 
     Integer checkIsGoods(String column);
+
+    List<Message> listMessageByColumn(Map<String, Object> parameter);
 }

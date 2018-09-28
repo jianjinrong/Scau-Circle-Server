@@ -1,9 +1,10 @@
-package com.pinnuli.controller;
+package com.pinnuli.controller.square;
 
 import com.pinnuli.commons.Result;
+import com.pinnuli.controller.ImageController;
+import com.pinnuli.model.square.Message;
 import com.pinnuli.model.PayloadInfo;
-import com.pinnuli.model.Square;
-import com.pinnuli.service.SquareService;
+import com.pinnuli.service.square.MessageService;
 import com.pinnuli.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/api/square")
-public class SquareController {
+public class MessageController {
 
     @Autowired
-    private SquareService squareService;
+    private MessageService messageService;
 
     @Autowired
     private UserService userService;
@@ -30,15 +31,17 @@ public class SquareController {
     private static Logger log = LoggerFactory.getLogger(ImageController.class);
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Result saveMessage(@RequestBody Square square, HttpServletRequest request) {
+    public Result saveMessage(@RequestBody Message message, HttpServletRequest request) {
         //设置用户id
         PayloadInfo payloadInfo = userService.getPayloadInfo(request);
-        square.setUserId(payloadInfo.getUserId());
-        return squareService.saveOrUpdateMessage(square);
+        message.setUserId(payloadInfo.getUserId());
+        return messageService.saveOrUpdateMessage(message);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Result deleteMessage(@RequestParam("messageId") Integer messageId) {
-        return squareService.deleteMessage(messageId);
+        return messageService.deleteMessage(messageId);
     }
+
+
 }
